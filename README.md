@@ -1,6 +1,6 @@
 #LCharts
 ###综合了几种常用图表的绘制，目前支持饼状图，柱状图，雷达图。之后会慢慢更新，支持更多图表。
--
+-![图表](https://github.com/teddyisme/LCharts/blob/master/gifs/c.gif "录屏")
 ####项目可以随便用，随便改，只要star一下让我知道有多少人在用就可以了。
 --
 --
