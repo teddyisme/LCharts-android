@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="radarCharts">
+        <attr name="itemTextColor" format="color" />
+        <attr name="itemTextSize" format="dimension" />
+        <attr name="dataBackColor" format="color" />
+        <attr name="polygonNumber" format="integer" />
+        <attr name="classNumber" format="integer" />
+    </declare-styleable>
+
+    <declare-styleable name="barCharts">
+        <attr name="borderColor" format="color" />
+        <attr name="lineColor" format="color" />
+        <attr name="title" format="string" />
+        <attr name="titleTextSize" format="dimension" />
+        <attr name="labelTextSize" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="pieCharts">
+        <attr name="circleStrokeWidth" format="dimension" />
+        <attr name="pieLineColor" format="color" />
+        <attr name="backColor" format="color" />
+    </declare-styleable>
+
+</resources>
