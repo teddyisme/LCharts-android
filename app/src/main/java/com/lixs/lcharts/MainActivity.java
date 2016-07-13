@@ -1,10 +1,11 @@
 package com.lixs.lcharts;
 
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 import com.lixs.charts.BarChartView;
+import com.lixs.charts.LineChartView;
 import com.lixs.charts.PieChartView;
 import com.lixs.charts.RadarChartView;
 
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     PieChartView pieChartView;
     BarChartView barChartView;
     RadarChartView radarChartView;
+    LineChartView lineChartView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,9 +31,37 @@ public class MainActivity extends AppCompatActivity {
         pieChartView = (PieChartView) findViewById(R.id.pieView);
         barChartView = (BarChartView) findViewById(R.id.barView);
         radarChartView = (RadarChartView) findViewById(R.id.radarView);
+        lineChartView = (LineChartView) findViewById(R.id.lineView);
         initPieDatas();
         initBarDatas();
         initRadarDatas();
+        initLineDatas();
+    }
+
+    private void initLineDatas() {
+        List<Double> datas = new ArrayList<>();
+        datas.add(100d);
+        datas.add(20d);
+        datas.add(40d);
+        datas.add(50d);
+        datas.add(50d);
+        datas.add(60d);
+        datas.add(60d);
+        datas.add(80d);
+        datas.add(80d);
+
+        List<String> description = new ArrayList<>();
+        description.add("one");
+        description.add("two");
+        description.add("three");
+        description.add("four");
+        description.add("five");
+        description.add("six");
+        description.add("six");
+        description.add("six");
+        description.add("six");
+
+        lineChartView.setDatas(datas, description);
     }
 
     private void initRadarDatas() {
@@ -52,6 +82,8 @@ public class MainActivity extends AppCompatActivity {
         description.add("five");
         description.add("six");
 
+        //点击动画开启
+        radarChartView.setCanClickAnimation(true);
         radarChartView.setDatas(datas);
         radarChartView.setPolygonNumbers(6);
         radarChartView.setDescriptions(description);
@@ -67,6 +99,13 @@ public class MainActivity extends AppCompatActivity {
         datas.add(50d);
         datas.add(60d);
         datas.add(80d);
+//        datas.add(70d);
+//        datas.add(30d);
+//        datas.add(40d);
+//        datas.add(35d);
+//        datas.add(38d);
+//        datas.add(60d);
+//        datas.add(90d);
 
         description.add("one");
         description.add("two");
@@ -74,8 +113,21 @@ public class MainActivity extends AppCompatActivity {
         description.add("four");
         description.add("five");
         description.add("six");
+//        description.add("seven");
+//        description.add("eight");
+//        description.add("eight1");
+//        description.add("eight2");
+//        description.add("eight3");
+//        description.add("eight4");
+//        description.add("eight5");
 
 //        barChartView.setBarTitle("柱状图示例");
+//        barChartView.setCanClickAnimation(false);
+
+        //显示的个数
+        barChartView.setShowNum(6);
+        //点击动画开启
+        barChartView.setCanClickAnimation(true);
         barChartView.setDatas(datas, description);
     }
 
@@ -102,6 +154,8 @@ public class MainActivity extends AppCompatActivity {
         mDescription.add("描述三");
         mDescription.add("描述四");
 
+        //点击动画开启
+        pieChartView.setCanClickAnimation(true);
         pieChartView.setDatas(mRatios, mArcColors, mDescription);
     }
 }

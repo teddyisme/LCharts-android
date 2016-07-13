@@ -7,14 +7,13 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 雷达图
+ * radarChart
  * Created by lxs on 2016/7/4.
  */
 public class RadarChartView extends LBaseView implements View.OnClickListener {
@@ -40,6 +39,7 @@ public class RadarChartView extends LBaseView implements View.OnClickListener {
     private List<String> mDescriptions;
 
     private List<Float> mDatas;
+
     private boolean canClickAnimator = true;
 
     private float rx;
@@ -51,7 +51,6 @@ public class RadarChartView extends LBaseView implements View.OnClickListener {
 
     public RadarChartView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
-        init(context, attrs);
     }
 
     public RadarChartView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -221,66 +220,32 @@ public class RadarChartView extends LBaseView implements View.OnClickListener {
         return Math.sin(Math.toRadians(angle));
     }
 
-    /**
-     * 设置有几个描述数据，即多边形边数
-     *
-     * @param polygonNumber 多边形角数
-     */
+
     public void setPolygonNumbers(int polygonNumber) {
         this.PolygonNumber = polygonNumber;
     }
 
-    /**
-     * 设置分级数
-     *
-     * @param classNumber 分级数 默认为4
-     */
     public void setClassNumbers(int classNumber) {
         this.ClassNumber = classNumber;
     }
 
-    /**
-     * 设置描述文字
-     *
-     * @param descriptions 描述文字
-     */
     public void setDescriptions(List<String> descriptions) {
         this.mDescriptions = descriptions;
     }
 
-    /**
-     * 设置描述文字大小
-     *
-     * @param size 文字大小 单位为(dp)
-     */
     public void setDescriptionTextSize(int size) {
         this.mDescriptionTextSize = dp2px(size);
     }
 
-    /**
-     * 设置描述文字颜色
-     *
-     * @param color 文字颜色
-     */
     public void setDescriptionTextColor(int color) {
         this.defaultTextColor = color;
     }
 
-    /**
-     * 设置数据背景颜色
-     *
-     * @param color 数据背景颜色
-     */
     public void setDefaultDataBackgroundColor(int color) {
         this.defaultDataBackgroundColor = color;
     }
 
 
-    /**
-     * 设置数据并启动绘图
-     *
-     * @param datas 数据集合
-     */
     public void setDatas(List<Float> datas) {
         this.mDatas = datas;
         animator.start();
@@ -288,8 +253,7 @@ public class RadarChartView extends LBaseView implements View.OnClickListener {
 
     @Override
     public void onClick(View v) {
-        if (canClickAnimator)
-            animator.start();
+        if (canClickAnimator) animator.start();
     }
 
     public void setCanClickAnimator(boolean can) {

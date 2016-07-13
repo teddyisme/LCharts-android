@@ -6,14 +6,13 @@ import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
-/**
- * Created by Lxs on 2016/7/4.
- */
 public class LBaseView extends View {
     protected float mWidth = 0f;
     protected float mHeight = 0f;
 
     protected float scale = 0.5f;
+
+    protected boolean canClickAnimation = false;
 
     protected ValueAnimator animator;
 
@@ -49,4 +48,9 @@ public class LBaseView extends View {
     protected int dp2px(int dpValue) {
         return (int) getContext().getResources().getDisplayMetrics().density * dpValue;
     }
+
+    public void setCanClickAnimation(boolean canClickAnimation) {
+        this.canClickAnimation = canClickAnimation;
+    }
+
 }

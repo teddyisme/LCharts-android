@@ -7,13 +7,14 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 饼状图
+ * pieChart
  * Created by lxs on 2016/6/29.
  */
 public class PieChartView extends LBaseView implements View.OnClickListener {
@@ -41,7 +42,6 @@ public class PieChartView extends LBaseView implements View.OnClickListener {
 
     public PieChartView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
-        init(context, attrs);
     }
 
     public PieChartView(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -200,10 +200,25 @@ public class PieChartView extends LBaseView implements View.OnClickListener {
         return sum * 360;
     }
 
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
+        //TODO:饼状图区域点击判定
+        double k = (event.getY() - mWidth / 2) / (event.getX() - mWidth / 2);
+        int angle = 0;
+        if (event.getX() > mWidth / 2 && event.getY() > mWidth / 2) {
+            angle = (int) Math.toDegrees(Math.atan(k));
+        } else if (event.getX() < mWidth / 2 && event.getY() > mWidth / 2 || (event.getX() < mWidth / 2 && event.getY() < mWidth / 2)) {
+            angle = 180 + (int) Math.toDegrees(Math.atan(k));
+        } else if (event.getX() > mWidth / 2 && event.getY() < mWidth / 2) {
+            angle = 360 + (int) Math.toDegrees(Math.atan(k));
+        }
+
+        return super.onTouchEvent(event);
+    }
 
     @Override
     public void onClick(View v) {
-        animator.start();
+        if (canClickAnimation) animator.start();
     }
 
     private void setRatiosData(List<Float> data) {
@@ -218,31 +233,17 @@ public class PieChartView extends LBaseView implements View.OnClickListener {
         this.mDescription = descriptions;
     }
 
-    /**
-     * 设置背景及边线颜色,不设置为默认
-     *
-     * @param backColor 背景及边线颜色
-     */
+
     public void setBackColor(int backColor) {
         this.defaultBackColor = backColor;
     }
 
-    /**
-     * 设置指示线颜色，默认和每个模块颜色一致
-     *
-     * @param lineColor 指示线颜色
-     */
+
     public void setLineColor(int lineColor) {
         this.lineColor = lineColor;
     }
 
-    /**
-     * 设置数据并启动画图
-     *
-     * @param data         饼状图各个占比
-     * @param colors       每个饼块颜色
-     * @param descriptions 每个饼块描述
-     */
+
     public void setDatas(List<Float> data,
                          List<Integer> colors,
                          List<String> descriptions) {

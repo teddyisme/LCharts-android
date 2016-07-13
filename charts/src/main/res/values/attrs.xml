@@ -6,6 +6,7 @@
         <attr name="dataBackColor" format="color" />
         <attr name="polygonNumber" format="integer" />
         <attr name="classNumber" format="integer" />
+        <attr name="showNumber" format="integer" />
     </declare-styleable>
 
     <declare-styleable name="barCharts">

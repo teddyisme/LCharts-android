@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:paddingBottom="@dimen/activity_vertical_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.lixs.lcharts.MainActivity">
 
-    <ScrollView
+    <com.lixs.lcharts.MyScrollview
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -23,31 +23,39 @@
                 android:id="@+id/pieView"
                 android:layout_width="300dp"
                 android:layout_height="300dp"
-                app:circleStrokeWidth='2dp'
-                app:backColor="#ffd9d9d9"/>
+                app:backColor="#ffd9d9d9"
+                app:circleStrokeWidth='2dp' />
 
 
             <com.lixs.charts.BarChartView
                 android:id="@+id/barView"
                 android:layout_width="350dp"
                 android:layout_height="300dp"
-                app:titleTextSize="20dp"
                 app:labelTextSize="10dp"
-                app:title="柱状图示例1"/>
+                app:title="柱状图示例1"
+                app:titleTextSize="20dp" />
 
             <com.lixs.charts.RadarChartView
                 android:id="@+id/radarView"
                 android:layout_width="300dp"
                 android:layout_height="300dp"
+                app:classNumber="3"
+                app:dataBackColor="@color/t_blue"
                 app:itemTextColor="@color/colorAccent"
                 app:itemTextSize="16dp"
-                app:dataBackColor="@color/t_blue"
-                app:polygonNumber="8"
-                app:classNumber="3"/>
+                app:polygonNumber="8" />
+
+            <com.lixs.charts.LineChartView
+                android:id="@+id/lineView"
+                android:layout_width="350dp"
+                android:layout_height="300dp"
+                app:labelTextSize="10dp"
+                app:title="折线图示例1"
+                app:titleTextSize="20dp" />
 
         </LinearLayout>
 
-    </ScrollView>
+    </com.lixs.lcharts.MyScrollview>
 
 
 </LinearLayout>
