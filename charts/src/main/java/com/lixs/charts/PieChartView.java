@@ -7,8 +7,10 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+
 
 import com.lixs.charts.Base.LBaseView;
 
@@ -32,6 +34,8 @@ public class PieChartView extends LBaseView implements View.OnClickListener {
     private List<Float> mRatios;
     private List<String> mDescription;
     private List<Integer> mArcColors;
+
+    private PieClickListener pieClickListener;
 
     private int lineColor = -1;
 
@@ -204,18 +208,29 @@ public class PieChartView extends LBaseView implements View.OnClickListener {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        //TODO:饼状图区域点击判定
-        double k = (event.getY() - mWidth / 2) / (event.getX() - mWidth / 2);
-        int angle = 0;
-        if (event.getX() > mWidth / 2 && event.getY() > mWidth / 2) {
-            angle = (int) Math.toDegrees(Math.atan(k));
-        } else if (event.getX() < mWidth / 2 && event.getY() > mWidth / 2 || (event.getX() < mWidth / 2 && event.getY() < mWidth / 2)) {
-            angle = 180 + (int) Math.toDegrees(Math.atan(k));
-        } else if (event.getX() > mWidth / 2 && event.getY() < mWidth / 2) {
-            angle = 360 + (int) Math.toDegrees(Math.atan(k));
+        Log.d("LOG", "onTouchEvent");
+        if (pieClickListener != null) {
+            double k = (event.getY() - mWidth / 2) / (event.getX() - mWidth / 2);
+            int angle = 0;
+            if (event.getX() > mWidth / 2 && event.getY() > mWidth / 2) {
+                angle = (int) Math.toDegrees(Math.atan(k));
+            } else if (event.getX() < mWidth / 2 && event.getY() > mWidth / 2 || (event.getX() < mWidth / 2 && event.getY() < mWidth / 2)) {
+                angle = 180 + (int) Math.toDegrees(Math.atan(k));
+            } else if (event.getX() > mWidth / 2 && event.getY() < mWidth / 2) {
+                angle = 360 + (int) Math.toDegrees(Math.atan(k));
+            }
+            for (int i = 1; i < mRatios.size() + 1; i++) {
+                if (angle < getRatioSum(i) * 360 && angle > getRatioSum(i - 1) * 360) {
+                    pieClickListener.perPieClick(mRatios.get(i - 1), i);
+                }
+            }
         }
 
-        return super.onTouchEvent(event);
+        return false;
+    }
+
+    public void setPieClickListener(PieClickListener pieClickListener) {
+        this.pieClickListener = pieClickListener;
     }
 
     @Override
@@ -257,5 +272,11 @@ public class PieChartView extends LBaseView implements View.OnClickListener {
             setRatiosDescriptions(descriptions);
             animator.start();
         }
+    }
+
+
+    public interface PieClickListener {
+
+        void perPieClick(Float ratio, Integer i);
     }
 }
