@@ -3,7 +3,7 @@
 -![图表](https://github.com/teddyisme/LCharts/blob/master/gifs/c.gif "录屏")
 ![mahua](https://github.com/teddyisme/LCharts-android/blob/master/gifs/line.png)
 ##简单使用：
-    compile 'com.lixs.charts:charts:1.0.1'
+    compile 'com.lixs.charts:charts:1.0.2'
     也可以下载代码进行依赖
     
    ``` 
