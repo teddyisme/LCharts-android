@@ -1,4 +1,4 @@
-package com.lixs.charts;
+package com.lixs.charts.Base;
 
 import android.animation.ValueAnimator;
 import android.content.Context;

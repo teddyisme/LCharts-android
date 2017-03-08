@@ -9,6 +9,8 @@ import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.lixs.charts.Base.LBaseView;
+
 import java.util.ArrayList;
 import java.util.List;
 

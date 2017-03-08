@@ -9,6 +9,8 @@ import android.graphics.PointF;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 
+import com.lixs.charts.Base.FramBase;
+
 import java.util.List;
 
 /**

@@ -1,4 +1,4 @@
-package com.lixs.charts;
+package com.lixs.charts.Base;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -8,6 +8,8 @@ import android.graphics.Paint;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
+
+import com.lixs.charts.R;
 
 import java.util.ArrayList;
 import java.util.Collections;
