@@ -10,8 +10,10 @@
    ###1.0.1  
             添加折线图
             支持柱状图和折线图更多数据的左右拖拽
-    
-   ```javascript
+   ###1.0.2###
+            添加饼状图区域点击
+            
+   ```javascript
             <com.lixs.charts.PieChartView
                 android:id="@+id/pieView"
                 android:layout_width="300dp"
@@ -73,5 +75,3 @@
     ```
 
 ### 项目可以随便用，随便改，只要star一下让我知道有多少人在用就可以了。
-
- ###不管是有需求还是批评指教都欢迎来沟通交流：QQ群:462697846
