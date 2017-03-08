@@ -6,15 +6,20 @@
     compile 'com.lixs.charts:charts:1.0.1'
     也可以下载代码进行依赖
     
-##更新日志:
-   ###1.0.1  
+   ``` 
+更新日志:
+   1.0.1  
             添加折线图
             支持柱状图和折线图更多数据的左右拖拽
             
-   ###1.0.2###
-            添加饼状图区域点击
+   1.0.2
+            添加饼状图区域点击
             
-   ```javascript
+   ```
+         
+         
+            
+   ```
             <com.lixs.charts.PieChartView
                 android:id="@+id/pieView"
                 android:layout_width="300dp"
