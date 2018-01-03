@@ -1,26 +1,30 @@
-#LCharts
-###综合了几种常用图表的绘制，目前支持饼状图，柱状图，雷达图,折线图。之后会慢慢更新，支持更多图表。
+ ## LCharts 
+
+ 综合了几种常用图表的绘制，目前支持饼状图，柱状图，雷达图,折线图。之后会慢慢更新，支持更多图表。
 -![图表](https://github.com/teddyisme/LCharts/blob/master/gifs/c.gif "录屏")
 ![mahua](https://github.com/teddyisme/LCharts-android/blob/master/gifs/line.png)
 
-###简单使用：
+### 简单使用：
     compile 'com.lixs.charts:charts:1.0.2'
     也可以下载代码进行依赖
     
-   ``` 
-更新日志:
-   1.0.1  
-            添加折线图
-            支持柱状图和折线图更多数据的左右拖拽
+ 
+### 更新日志:
+
+1.0.1  
+     添加折线图
+     支持柱状图和折线图更多数据的左右拖拽
+     
+ 1.0.2
+     添加饼状图区域点击
+           
             
-   1.0.2
-            添加饼状图区域点击
-            
-   ```
+ 
          
          
             
-   ```
+  ```
+  
             <com.lixs.charts.PieChartView
                 android:id="@+id/pieView"
                 android:layout_width="300dp"
@@ -78,6 +82,6 @@
         radarChartView.setPolygonNumbers(6);
         radarChartView.setDescriptions(description);
     }
-    ```
+```
 
 ### 项目可以随便用，随便改，只要star一下让我知道有多少人在用就可以了。
