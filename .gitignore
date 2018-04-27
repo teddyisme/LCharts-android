@@ -7,3 +7,4 @@
 /build
 /captures
 charts/bintrayUpload.gradle
+gradlew

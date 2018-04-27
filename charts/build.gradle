@@ -22,9 +22,26 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    testCompile 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
     implementation 'com.android.support:appcompat-v7:23.4.0'
 }
+repositories {
+    google()
+    mavenCentral()
+    jcenter()
+}
 
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+    //加上这些
+    tasks.withType(Javadoc) {
+        options.addStringOption('Xdoclint:none', '-quiet')
+        options.addStringOption('encoding', 'UTF-8')
+        options.addStringOption('charSet', 'UTF-8')
+    }
+}
 
-//apply from: "bintrayUpload.gradle"
+apply from: "bintrayUpload.gradle"
