@@ -7,7 +7,6 @@ import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.PointF;
 import android.util.AttributeSet;
-import android.view.GestureDetector;
 
 import com.lixs.charts.Base.FramBase;
 
@@ -17,7 +16,7 @@ import java.util.List;
  * lineChart
  * Created by lxs on 2016/7/6.
  */
-public class LineChartView extends FramBase implements GestureDetector.OnGestureListener {
+public class LineChartView extends FramBase {
     private Paint mPointPaint;
     private int defaultPointColor = Color.RED;
     private int defaultDataLineColor = Color.RED;
@@ -88,7 +87,7 @@ public class LineChartView extends FramBase implements GestureDetector.OnGesture
             if (mTruelyDescription.get(i) != null)
                 canvas.drawText(mTruelyDescription.get(i),
                         x - mTextPaint.measureText(mTruelyDescription.get(i)) / 2,
-                        mPadding,
+                        mPadding + mTextPaint.measureText("0"),
                         mTextPaint);
         }
         canvas.drawPath(path, mDataLinePaint);
@@ -135,6 +134,7 @@ public class LineChartView extends FramBase implements GestureDetector.OnGesture
         postInvalidate();
     }
 
+    @Override
     public void setShowNum(int showNum) {
         this.showNum = showNum;
     }

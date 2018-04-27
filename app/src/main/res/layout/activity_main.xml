@@ -35,6 +35,12 @@
                 app:title="柱状图示例1"
                 app:titleTextSize="20dp" />
 
+            <Button
+                android:id="@+id/bar_btn"
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:text="柱状图添加数据"/>
+
             <com.lixs.charts.RadarChartView
                 android:id="@+id/radarView"
                 android:layout_width="300dp"

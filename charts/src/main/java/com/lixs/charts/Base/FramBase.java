@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class FramBase extends LBaseView implements GestureDetector.OnGestureListener {
+public class FramBase extends LBaseView {
     private GestureDetector detector;
 
     protected float mBorderLandLength = 0f;
@@ -60,7 +60,7 @@ public class FramBase extends LBaseView implements GestureDetector.OnGestureList
     }
 
     private void init(Context context, AttributeSet attrs) {
-        detector = new GestureDetector(context, this);
+        detector = new GestureDetector(context, new mGestureListener());
 
         mDatas = new ArrayList<>();
         mDescription = new ArrayList<>();
@@ -78,12 +78,28 @@ public class FramBase extends LBaseView implements GestureDetector.OnGestureList
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        return detector.onTouchEvent(event);
+        if (detector.onTouchEvent(event)) {
+            return detector.onTouchEvent(event);
+        }
+        switch (event.getAction() & MotionEvent.ACTION_MASK) {
+            case MotionEvent.ACTION_UP:
+                endGesture();
+                break;
+            default:
+                break;
+        }
+
+        return false;
+    }
+
+    private void endGesture() {
+        scrollXSum = 0;
     }
 
     protected void drawFrame(Canvas canvas) {
-        if (mTitle != null)
+        if (mTitle != null) {
             canvas.drawText(mTitle, mWidth / 2 - mTitlePaint.measureText(mTitle) / 2, mHeight / 10, mTitlePaint);
+        }
 
         canvas.translate(mPadding * 3f, mHeight - mPadding * 2);
 
@@ -91,15 +107,15 @@ public class FramBase extends LBaseView implements GestureDetector.OnGestureList
 
         canvas.drawLine(0, 0, 0, mBorderVerticalLength, mBorderLinePaint);
 
-        canvas.drawText("0", -mTextPaint.measureText("0") - 2, 0, mTextPaint);
+        canvas.drawText("0", -mTextPaint.measureText("0") - dp2px(2), 0, mTextPaint);
 
         canvas.drawText(String.valueOf(maxData / 2),
-                -mTextPaint.measureText(String.valueOf(maxData / 2)) - 2,
+                -mTextPaint.measureText(String.valueOf(maxData / 2)) - dp2px(2),
                 mBorderVerticalLength / 2,
                 mTextPaint);
 
         canvas.drawText(String.valueOf(Math.round(maxData * 1.05)),
-                -mTextPaint.measureText(String.valueOf(Math.round(maxData * 1.05))) - 2,
+                -mTextPaint.measureText(String.valueOf(Math.round(maxData * 1.05))) - dp2px(2),
                 mBorderVerticalLength,
                 mTextPaint);
     }
@@ -109,7 +125,7 @@ public class FramBase extends LBaseView implements GestureDetector.OnGestureList
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         mHeight = getMeasuredHeight();
         mWidth = getMeasuredWidth();
-        mPadding = dp2px(8);
+        mPadding = dp2px(10);
 
         mBorderLandLength = mWidth - mPadding * 2;
         mBorderVerticalLength = -mHeight * 4 / 5;
@@ -138,65 +154,70 @@ public class FramBase extends LBaseView implements GestureDetector.OnGestureList
         this.mTitle = title;
     }
 
-    @Override
-    public boolean onDown(MotionEvent e) {
-        return true;
-    }
-
-    @Override
-    public void onShowPress(MotionEvent e) {
-
-    }
-
-    @Override
-    public boolean onSingleTapUp(MotionEvent e) {
-        if (canClickAnimation) animator.start();
-        return true;
-    }
-
-    @Override
-    public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
-        //往左滑动
-        if (distanceX > dp2px(6)) {
-            if (mStartIndex >= mDatas.size() - showNum) {
-                mTruelyDrawDatas = mDatas.subList(mDatas.size() - showNum, mDatas.size());
-                mTruelyDescription = mDescription.subList(mDatas.size() - showNum, mDatas.size());
-            } else {
-                mStartIndex++;
-                if (mStartIndex > mDatas.size() - showNum)
-                    mStartIndex = mDatas.size() - showNum;
-                mTruelyDrawDatas = mDatas.subList(mStartIndex, mStartIndex + showNum);
-                mTruelyDescription = mDescription.subList(mStartIndex, mStartIndex + showNum);
+    private int getScrollIndex(float distanceX) {
+        if (showNum > mDatas.size()) {
+            if ((int) (Math.abs(distanceX) / (mBorderLandLength / mDatas.size())) >= 1) {
+                scrollXSum = 0;
+                return 1;
+            }
+        } else {
+            if ((int) (Math.abs(distanceX) / (mBorderLandLength / showNum)) >= 1) {
+                scrollXSum = 0;
+                return 1;
             }
         }
-        //往右滑动
-        else if (Math.abs(distanceX) > dp2px(6)) {
-            if (mStartIndex <= 0) {
-                mTruelyDrawDatas = mDatas.subList(0, showNum);
-                mTruelyDescription = mDescription.subList(0, showNum);
+        return 0;
+    }
 
-            } else if (mStartIndex <= mDatas.size()) {
-                mStartIndex--;
-                if (mStartIndex < 0) mStartIndex = 0;
-                if (mStartIndex + showNum < mDatas.size()) {
+    private float scrollXSum = 0;
+
+    public class mGestureListener extends GestureDetector.SimpleOnGestureListener {
+        @Override
+        public boolean onDown(MotionEvent e) {
+            return true;
+        }
+
+        @Override
+        public boolean onSingleTapUp(MotionEvent e) {
+            if (canClickAnimation) animator.start();
+            return true;
+        }
+
+        @Override
+        public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
+            scrollXSum += distanceX;
+            //往左滑动
+            if (scrollXSum > dp2px(6)) {
+                if (mStartIndex >= mDatas.size() - showNum) {
+                    mTruelyDrawDatas = mDatas.subList(mDatas.size() - showNum, mDatas.size());
+                    mTruelyDescription = mDescription.subList(mDatas.size() - showNum, mDatas.size());
+                } else {
+                    mStartIndex += getScrollIndex(scrollXSum);
+                    if (mStartIndex > mDatas.size() - showNum)
+                        mStartIndex = mDatas.size() - showNum;
                     mTruelyDrawDatas = mDatas.subList(mStartIndex, mStartIndex + showNum);
                     mTruelyDescription = mDescription.subList(mStartIndex, mStartIndex + showNum);
                 }
             }
+            //往右滑动
+            else if (Math.abs(scrollXSum) > dp2px(6)) {
+                if (mStartIndex <= 0) {
+                    mTruelyDrawDatas = mDatas.subList(0, showNum);
+                    mTruelyDescription = mDescription.subList(0, showNum);
+
+                } else if (mStartIndex <= mDatas.size()) {
+                    mStartIndex -= getScrollIndex(scrollXSum);
+                    if (mStartIndex < 0) mStartIndex = 0;
+                    if (mStartIndex + showNum < mDatas.size()) {
+                        mTruelyDrawDatas = mDatas.subList(mStartIndex, mStartIndex + showNum);
+                        mTruelyDescription = mDescription.subList(mStartIndex, mStartIndex + showNum);
+                    }
+                }
+            }
+
+            postInvalidate();
+            return false;
         }
 
-        postInvalidate();
-        return true;
     }
-
-    @Override
-    public void onLongPress(MotionEvent e) {
-    }
-
-    @Override
-    public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
-
-        return false;
-    }
-
 }

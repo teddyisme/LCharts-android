@@ -5,17 +5,17 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
-import android.view.GestureDetector;
 
 import com.lixs.charts.Base.FramBase;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * barChart
  * Created by lxs on 2016/7/1.
  */
-public class BarChartView extends FramBase implements GestureDetector.OnGestureListener {
+public class BarChartView extends FramBase {
     private boolean hasMore = false;
     private float perBarW;
     private int mDrawNum;
@@ -92,11 +92,12 @@ public class BarChartView extends FramBase implements GestureDetector.OnGestureL
                     mTextPaint);
 
 
-            if (mDescription.get(i) != null)
+            if (mDescription.get(i) != null) {
                 canvas.drawText(mTruelyDescription.get(i),
                         x - mTextPaint.measureText(mTruelyDescription.get(i)) / 2,
-                        mPadding,
+                        mPadding + mTextPaint.measureText("0"),
                         mTextPaint);
+            }
 
         }
     }
@@ -112,11 +113,11 @@ public class BarChartView extends FramBase implements GestureDetector.OnGestureL
     public void setDatas(List<Double> mDatas, List<String> mDesciption) {
         this.mDatas.clear();
         this.mDatas.addAll(mDatas);
-        this.mTruelyDrawDatas.clear();
+        this.mTruelyDrawDatas = new ArrayList<>();
 
         this.mDescription.clear();
         this.mDescription.addAll(mDesciption);
-        this.mTruelyDescription.clear();
+        this.mTruelyDescription = new ArrayList<>();
 
         if (showNum > mDatas.size()) {
             hasMore = false;
