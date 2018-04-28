@@ -6,7 +6,7 @@
 
 ### 导入：
 ```
-  implementation 'com.lixs.charts:charts:1.0.4'
+  implementation 'com.lixs.charts:charts:1.0.5'
 ```
  >   也可以下载代码进行依赖
 
