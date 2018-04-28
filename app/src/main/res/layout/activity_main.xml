@@ -19,27 +19,32 @@
             android:gravity="center_horizontal"
             android:orientation="vertical">
 
+            <com.lixs.charts.BarChart.LBarChartView
+                android:id="@+id/frameNewBase"
+                android:layout_width="350dp"
+                android:layout_height="300dp"
+                app:barShowNumber="6"
+                app:borderColor="@color/colorAccent"
+                app:bottomTextSpace="20dp"
+                app:dataTextColor="@color/colorPrimaryDark"
+                app:dataTextSize="12sp"
+                app:descriptionTextColor="@color/colorPrimary"
+                app:descriptionTextSize="20sp"
+                app:isClickAnimation="true"
+                app:labelTextColor="@color/colorPrimary"
+                app:labelTextSize="10sp"
+                app:leftTextSpace="30dp"
+                app:title="柱状图实例"
+                app:titleTextColor="@color/colorPrimaryDark"
+                app:titleTextSize="20sp"
+                app:topTextSpace="50dp" />
+
             <com.lixs.charts.PieChartView
                 android:id="@+id/pieView"
                 android:layout_width="300dp"
                 android:layout_height="300dp"
                 app:backColor="#ffd9d9d9"
                 app:circleStrokeWidth='2dp' />
-
-
-            <com.lixs.charts.BarChartView
-                android:id="@+id/barView"
-                android:layout_width="350dp"
-                android:layout_height="300dp"
-                app:labelTextSize="10dp"
-                app:title="柱状图示例1"
-                app:titleTextSize="20dp" />
-
-            <Button
-                android:id="@+id/bar_btn"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:text="柱状图添加数据"/>
 
             <com.lixs.charts.RadarChartView
                 android:id="@+id/radarView"

@@ -72,7 +72,7 @@ public class FramBase extends LBaseView {
         mTitleTextSize = (int) t.getDimension(R.styleable.barCharts_titleTextSize, mTitleTextSize);
         mLabelTextSize = (int) t.getDimension(R.styleable.barCharts_labelTextSize, mLabelTextSize);
         mTitle = t.getString(R.styleable.barCharts_title);
-        showNum = t.getInteger(R.styleable.radarCharts_showNumber, showNum);
+        showNum = t.getInteger(R.styleable.barCharts_barShowNumber, showNum);
         t.recycle();
     }
 

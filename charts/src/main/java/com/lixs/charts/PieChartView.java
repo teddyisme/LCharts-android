@@ -7,10 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
-import android.view.View;
-
 
 import com.lixs.charts.Base.LBaseView;
 
@@ -21,7 +18,7 @@ import java.util.List;
  * pieChart
  * Created by lxs on 2016/6/29.
  */
-public class PieChartView extends LBaseView implements View.OnClickListener {
+public class PieChartView extends LBaseView {
     private float mRadius = 0f;
 
     private Paint mCirclePaint;
@@ -56,8 +53,6 @@ public class PieChartView extends LBaseView implements View.OnClickListener {
     }
 
     private void init(Context context, AttributeSet attrs) {
-        setOnClickListener(this);
-
         TypedArray t = context.obtainStyledAttributes(attrs, R.styleable.pieCharts);
         lineColor = t.getColor(R.styleable.pieCharts_pieLineColor, -1);
         defaultBackColor = t.getColor(R.styleable.pieCharts_backColor, defaultBackColor);
@@ -86,10 +81,11 @@ public class PieChartView extends LBaseView implements View.OnClickListener {
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-        if (getMeasuredWidth() > getHeight())
+        if (getMeasuredWidth() > getHeight()) {
             mWidth = getMeasuredHeight();
-        else
+        } else {
             mWidth = getMeasuredWidth();
+        }
 
         int mPadding = (int) (mWidth / 4);
 
@@ -135,10 +131,11 @@ public class PieChartView extends LBaseView implements View.OnClickListener {
 
         for (int i = 0; i < mRatios.size(); i++) {
 
-            if (lineColor != -1)
+            if (lineColor != -1) {
                 mArcPaint.setColor(lineColor);
-            else
+            } else {
                 mArcPaint.setColor(mArcColors.get(i));
+            }
 
             canvas.save();
 
@@ -208,7 +205,6 @@ public class PieChartView extends LBaseView implements View.OnClickListener {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        Log.d("LOG", "onTouchEvent");
         if (pieClickListener != null) {
             double k = (event.getY() - mWidth / 2) / (event.getX() - mWidth / 2);
             int angle = 0;
@@ -224,6 +220,10 @@ public class PieChartView extends LBaseView implements View.OnClickListener {
                     pieClickListener.perPieClick(mRatios.get(i - 1), i);
                 }
             }
+        } else if (canClickAnimation) {
+            if (canClickAnimation) {
+                animator.start();
+            }
         }
 
         return false;
@@ -231,11 +231,6 @@ public class PieChartView extends LBaseView implements View.OnClickListener {
 
     public void setPieClickListener(PieClickListener pieClickListener) {
         this.pieClickListener = pieClickListener;
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (canClickAnimation) animator.start();
     }
 
     private void setRatiosData(List<Float> data) {

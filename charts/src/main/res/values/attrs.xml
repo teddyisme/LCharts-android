@@ -12,9 +12,25 @@
     <declare-styleable name="barCharts">
         <attr name="borderColor" format="color" />
         <attr name="lineColor" format="color" />
+        <attr name="titleTextColor" format="color" />
         <attr name="title" format="string" />
         <attr name="titleTextSize" format="dimension" />
+
         <attr name="labelTextSize" format="dimension" />
+        <attr name="labelTextColor" format="color" />
+
+        <attr name="descriptionTextSize" format="dimension" />
+        <attr name="descriptionTextColor" format="color" />
+
+        <attr name="dataTextSize" format="dimension" />
+        <attr name="dataTextColor" format="color" />
+
+        <attr name="leftTextSpace" format="dimension" />
+        <attr name="topTextSpace" format="dimension" />
+        <attr name="bottomTextSpace" format="dimension" />
+        <attr name="barShowNumber" format="integer" />
+        <attr name="isClickAnimation" format="boolean" />
+
     </declare-styleable>
 
     <declare-styleable name="pieCharts">
