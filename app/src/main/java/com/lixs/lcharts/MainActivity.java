@@ -3,7 +3,6 @@ package com.lixs.lcharts;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.lixs.charts.BarChart.DragInerfaces;
 import com.lixs.charts.BarChart.LBarChartView;
@@ -43,8 +42,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initNewBarDatas() {
-        List<Double> datas = new ArrayList<>();
-        List<String> description = new ArrayList<>();
+        final List<Double> datas = new ArrayList<>();
+        final List<String> description = new ArrayList<>();
 
         datas.add(100d);
         datas.add(20d);
@@ -75,14 +74,29 @@ public class MainActivity extends AppCompatActivity {
         description.add("eight4");
         description.add("eight5");
 
-        LBarChartView.setDatas(datas, description);
+        LBarChartView.setDatas(datas, description, true);
         LBarChartView.setDragInerfaces(new DragInerfaces() {
             @Override
             public void onEnd() {
+                final List<Double> datas = new ArrayList<>();
+                final List<String> description = new ArrayList<>();
+                datas.add(40d);
+                datas.add(15d);
+                datas.add(38d);
+                datas.add(60d);
+                datas.add(10d);
+
+                description.add("one");
+                description.add("two");
+                description.add("three");
+                description.add("four");
+                description.add("five");
+                LBarChartView.addEndMoreData(datas, description);
             }
 
             @Override
             public void onStart() {
+
             }
         });
     }

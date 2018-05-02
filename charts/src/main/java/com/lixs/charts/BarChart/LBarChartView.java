@@ -154,14 +154,23 @@ public class LBarChartView extends FrameLayout {
     }
 
 
-    public void setDatas(List<Double> mDatas, List<String> mDesciption) {
+    public void setDatas(List<Double> mDatas, List<String> mDesciption,boolean isAnimation) {
         this.mDatas = mDatas;
         setMaxData();
-        barChartView.setDatas(mDatas, mDesciption);
+        barChartView.setDatas(mDatas, mDesciption,isAnimation);
     }
 
     public void setDragInerfaces(DragInerfaces dragInerfaces) {
         barChartView.setDragInerfaces(dragInerfaces);
     }
+
+
+    public void addEndMoreData(List<Double> mDatas, List<String> mDesciption) {
+        barChartView.addEndMoreData(mDatas, mDesciption);
+    }
+
+//    public void addStartMoreData(List<Double> mDatas, List<String> mDesciption) {
+//        barChartView.addStartMoreData(mDatas,mDesciption);
+//    }
 
 }

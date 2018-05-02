@@ -145,13 +145,6 @@ public class BarChart extends LBaseView {
         }
     }
 
-    public void setDatas(List<Double> mDatas, List<String> mDesciption) {
-        this.mDatas.clear();
-        this.mDatas.addAll(mDatas);
-        this.mDescription = mDesciption;
-        animator.start();
-    }
-
     public void startCliclkAnimation() {
         if (canClickAnimation) {
             animator.start();
@@ -199,8 +192,9 @@ public class BarChart extends LBaseView {
 
     }
 
-
     private class BarGesture extends GestureDetector.SimpleOnGestureListener {
+        private int preScrollX = 0;
+
         @Override
         public boolean onDown(MotionEvent e) {
             return true;
@@ -210,22 +204,22 @@ public class BarChart extends LBaseView {
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
             int scrollX = getScrollX();
             int minScrollX = -scrollX;
-            if (scrollX < 0) {
-                scrollTo(0, 0);
-            } else if (scrollX > mMaxScrollx) {
-                scrollTo(mMaxScrollx, 0);
-                if (dragInerfaces != null) {
+            if (scrollX > mMaxScrollx && distanceX > 0) {
+                distanceX = 0;
+                if (dragInerfaces != null && (scrollX - preScrollX) > 0) {
                     dragInerfaces.onEnd();
                 }
+                scrollBy((int) distanceX, 0);
             } else {
                 if (distanceX < minScrollX) {
-                    if (dragInerfaces != null) {
+                    if (dragInerfaces != null && minScrollX != 0) {
                         dragInerfaces.onStart();
                     }
                     distanceX = minScrollX;
                 }
                 scrollBy((int) distanceX, 0);
             }
+            preScrollX = scrollX;
             return true;
         }
 
@@ -234,5 +228,42 @@ public class BarChart extends LBaseView {
             startCliclkAnimation();
             return super.onSingleTapUp(e);
         }
+    }
+
+    public void setDatas(List<Double> mDatas, List<String> mDesciption, boolean isAnimation) {
+        this.mDatas.clear();
+        this.mDatas.addAll(mDatas);
+        this.mDescription = mDesciption;
+        setDataLineWidth();
+        if (isAnimation) {
+            animator.start();
+        } else {
+            scale = 1;
+            postInvalidate();
+        }
+    }
+
+    public void addEndMoreData(List<Double> mDatas, List<String> mDesciption) {
+        this.mDatas.addAll(mDatas);
+        this.mDescription.addAll(mDesciption);
+        setDataLineWidth();
+
+        scale = 1;
+        postInvalidate();
+    }
+
+    private int startX = 0;
+
+    public void addStartMoreData(List<Double> mDatas, List<String> mDesciption) {
+        mDatas.addAll(this.mDatas);
+        mDesciption.addAll(this.mDescription);
+        this.mDatas.clear();
+        this.mDatas.addAll(mDatas);
+        this.mDescription.clear();
+        this.mDescription.addAll(mDesciption);
+//        (mWidth / mShowNumber) *
+        startX = (mWidth / mShowNumber) * mDatas.size();
+        setDataLineWidth();
+        postInvalidate();
     }
 }
