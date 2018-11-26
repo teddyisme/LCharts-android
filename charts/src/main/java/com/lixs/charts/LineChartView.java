@@ -79,7 +79,7 @@ public class LineChartView extends FramBase {
     private void drawDataLines(Canvas canvas) {
         Path path = new Path();
         path.moveTo(0.5f * mBorderLandLength / showNum, (float) (mBorderVerticalLength * 0.95f / maxData * mTruelyDrawDatas.get(0)));
-        for (int i = 0; i < showNum; i++) {
+        for (int i = 0; i < (showNum > mTruelyDrawDatas.size() ? mTruelyDrawDatas.size() : showNum); i++) {
             float x = (i + 0.5f) * mBorderLandLength / showNum;
             float y = (float) (mBorderVerticalLength * 0.95f / maxData * mTruelyDrawDatas.get(i));
             path.lineTo(x, y);
@@ -92,7 +92,7 @@ public class LineChartView extends FramBase {
         }
         canvas.drawPath(path, mDataLinePaint);
 
-        for (int i = 0; i < showNum; i++) {
+        for (int i = 0; i < (showNum > mTruelyDrawDatas.size() ? mTruelyDrawDatas.size() : showNum); i++) {
             PointF pointF = getPoint(i);
             mPointPaint.setColor(defaultPointColor);
             mPointPaint.setStyle(Paint.Style.STROKE);

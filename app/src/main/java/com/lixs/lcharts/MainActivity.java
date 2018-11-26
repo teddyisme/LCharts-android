@@ -105,24 +105,24 @@ public class MainActivity extends AppCompatActivity {
         List<Double> datas = new ArrayList<>();
         datas.add(100d);
         datas.add(20d);
-        datas.add(40d);
-        datas.add(50d);
-        datas.add(50d);
-        datas.add(60d);
-        datas.add(60d);
-        datas.add(80d);
-        datas.add(80d);
+//        datas.add(40d);
+//        datas.add(50d);
+//        datas.add(50d);
+//        datas.add(60d);
+//        datas.add(60d);
+//        datas.add(80d);
+//        datas.add(80d);
 
         List<String> description = new ArrayList<>();
         description.add("one");
         description.add("two");
-        description.add("three");
-        description.add("four");
-        description.add("five");
-        description.add("six");
-        description.add("six");
-        description.add("six");
-        description.add("six");
+//        description.add("three");
+//        description.add("four");
+//        description.add("five");
+//        description.add("six");
+//        description.add("six");
+//        description.add("six");
+//        description.add("six");
 
         lineChartView.setDatas(datas, description);
     }
